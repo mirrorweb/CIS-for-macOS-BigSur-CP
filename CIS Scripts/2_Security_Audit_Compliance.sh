@@ -982,7 +982,7 @@ Audit4_2="$($Defaults read "$plistlocation" OrgScore4_2)"
 if [ "$Audit4_2" = "1" ]; then
 	wifiMenuBar="$($Defaults -currentHost read com.apple.controlcenter.plist WiFi)"
 	# If client fails, then note category in audit file
-	if [ "$wifiMenuBar" -ne "18" ]; then
+	if [ "$wifiMenuBar" -ne 18 ]; then
 		echo "* 4.2 Enable Show Wi-Fi status in menu bar" >> "$auditfilelocation"
 		echo "$(date -u)" "4.2 fix" | tee -a "$logFile"; else
 		echo "$(date -u)" "4.2 passed" | tee -a "$logFile"
@@ -997,7 +997,7 @@ Audit4_4="$($Defaults read "$plistlocation" OrgScore4_4)"
 # Code fragment from https://github.com/krispayne/CIS-Settings/blob/master/ElCapitan_CIS.sh
 if [ "$Audit4_4" = "1" ]; then
 	httpdDisabled="$(launchctl print-disabled system | /usr/bin/grep -c '"org.apache.httpd" => true')"
-	if [ "$httpdDisabled" = 0 ] then
+	if [ "$httpdDisabled" = 0 ]; then
 		echo "* 4.4 Ensure http server is not running" >> "$auditfilelocation"
 		echo "$(date -u)" "4.4 fix" | tee -a "$logFile"; else
 		echo "$(date -u)" "4.4 passed" | tee -a "$logFile"
