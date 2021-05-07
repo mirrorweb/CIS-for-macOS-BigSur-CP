@@ -54,6 +54,12 @@ hardwareUUID="$(/usr/sbin/system_profiler SPHardwareDataType | grep "Hardware UU
 
 logFile="/Library/Application Support/SecurityScoring/remediation.log"
 
+osVersion="$(sw_vers -productversion)"
+if [ "$osVersion" < 11 ]; then
+	echo "This script does not support Catalina. Please use https://github.com/jamf/CIS-for-macOS-Catalina-CP instead"
+	exit 0
+fi
+
 
 if [[ $(tail -n 1 "$logFile") = *"Remediation complete" ]]; then
 	echo "Append to existing logFile"

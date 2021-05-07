@@ -1,9 +1,18 @@
-# CIS for macOS Catalina - Script and Configuration Profile Remediation
+# CIS for macOS Big Sur - Script and Configuration Profile Remediation
 ## INFO:
 
-Refers to document CIS_Apple_OSX_10.15_Benchmark_v1.0.0.pdf, available at https://benchmarks.cisecurity.org
+Refers to document CIS_Apple_macOS_11.0_Benchmark_v1.1.0.pdf, available at https://benchmarks.cisecurity.org
 
 ## USAGE:
+### Manual Usage
+
+These scripts are intended to be used by jamf. However, if you want to manually benchmark your own Big Sur laptop, you can do so via the following steps:
+
+* Ensure that `/Library/Application Support/` exists. Note that sudo is required for its creation
+* Update `CIS Scripts/1_Set_Organization_Priorities.sh` if necessary. Checks can be enabled and disabled by changing their corresponding boolean values
+* Run `CIS Scripts/2_Security_Audit_Compliance.sh` with sudo to run the benchmark
+* You can now get a list of all fails by using `Extension Attributes/2.5_Audit_List.sh` or remediate the fails using `CIS Scripts/3_Security_Remediation.sh` (sudo required)
+
 * Create Extension Attributes using the following scripts:
 ### 2.5_Audit_List Extension Attribute
 
