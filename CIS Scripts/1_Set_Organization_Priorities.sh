@@ -62,8 +62,8 @@ OrgScore1_1="true"
 
 # 1.2 Enable Auto Update 
 # Configuration Profile - Custom payload > com.apple.SoftwareUpdate.plist > AutomaticCheckEnabled=true, AutomaticDownload=true
-OrgScore1_2="true"
-# OrgScore1_2="false"
+#OrgScore1_2="true"
+OrgScore1_2="false"
 
 # 1.3 Enable Download new updates when available  
 # Configuration Profile - Custom payload > com.apple.SoftwareUpdate.plist > com.apple.SoftwareUpdate AutomaticDownload=true
@@ -72,8 +72,8 @@ OrgScore1_3="true"
 
 # 1.4 Enable app update installs
 # Does not work as a Configuration Profile - Custom payload > com.apple.commerce
-OrgScore1_4="true"
-# OrgScore1_4="false"
+#OrgScore1_4="true"
+OrgScore1_4="false"
 
 # 1.5 Enable system data files and security update installs 
 # Configuration Profile - Custom payload > com.apple.SoftwareUpdate.plist > ConfigDataInstall=true, CriticalUpdateInstall=true
@@ -82,8 +82,8 @@ OrgScore1_5="true"
 
 # 1.6 Enable macOS update installs 
 # Enter profile descrip here
-OrgScore1_6="true"
-# OrgScore1_6="false"
+#OrgScore1_6="true"
+OrgScore1_6="false"
 
 # 2.1.1 Turn off Bluetooth, if no paired devices exist 
 OrgScore2_1_1="true"
@@ -99,8 +99,8 @@ OrgScore2_2_1="true"
 
 # 2.2.2 Ensure time set is within appropriate limits 
 # Not audited - only enforced if identified as priority
-OrgScore2_2_2="true"
-# OrgScore2_2_2="false"
+# OrgScore2_2_2="true"
+OrgScore2_2_2="false"
 
 # 2.3.1 Set an inactivity interval of 20 minutes or less for the screen saver 
 # Configuration Profile - LoginWindow payload > Options > Start screen saver after: 20 Minutes of Inactivity
@@ -109,20 +109,20 @@ OrgScore2_3_1="true"
 
 # 2.3.2 Secure screen saver corners 
 # Configuration Profile - Custom payload > com.apple.dock > wvous-tl-corner=0, wvous-br-corner=5, wvous-bl-corner=0, wvous-tr-corner=0
-OrgScore2_3_2="true"
-# OrgScore2_3_2="false"
+#OrgScore2_3_2="true"
+OrgScore2_3_2="false"
 
 # 2.3.3 Set a screen corner to Start Screen Saver 
 # Configuration Profile - Custom payload > com.apple.dock > wvous-tl-corner=0, wvous-br-corner=5, wvous-bl-corner=0, wvous-tr-corner=0
-OrgScore2_3_3="true"
-# OrgScore2_3_3="false"
+#OrgScore2_3_3="true"
+OrgScore2_3_3="false"
 
 ## 2.3.3 Familiarize users with screen lock tools or corner to Start Screen Saver (not scored)
 ## The rationale in the CIS Benchmark for this is incorrect. The computer will lock if the 
 ## display sleeps before the Screen Saver activates
 # Configuration Profile - Custom payload > com.apple.dock > wvous-tl-corner=0, wvous-br-corner=5, wvous-bl-corner=0, wvous-tr-corner=0
-OrgScore2_3_3="true"
-# OrgScore2_3_3="false"
+#OrgScore2_3_3="true"
+OrgScore2_3_3="false"
 
 # 2.4.1 Disable Remote Apple Events 
 OrgScore2_4_1="true"
@@ -196,8 +196,8 @@ OrgScore2_5_2_2="true"
 
 # 2.5.2.3 Enable Firewall Stealth Mode 
 # Configuration Profile - Security and Privacy payload > Firewall > Enable stealth mode (checked)
-OrgScore2_5_2_3="true"
-# OrgScore2_5_2_3="false"
+#OrgScore2_5_2_3="true"
+OrgScore2_5_2_3="false"
 
 # 2.5.3 Enable Location Services
 OrgScore2_5_3="true"
@@ -255,7 +255,7 @@ OrgScore2_8="true"
 OrgScore2_9="true"
 # OrgScore2_9="false"
 
-# 2.10 Enable Secure Keyboard Entry in terminal.app 
+# 2.10 Enable Secure Keyboard Entry in terminal.app and iTerm 2 
 # Configuration Profile - Custom payload > com.apple.Terminal > SecureKeyboardEntry=true
 OrgScore2_10="true"
 # OrgScore2_10="false"
@@ -279,12 +279,12 @@ OrgScore3_2="true"
 # OrgScore3_2="false"
 
 # 3.3 Retain install.log for 365 or more days
-OrgScore3_3="true"
-# OrgScore3_3="false"
+#OrgScore3_3="true"
+OrgScore3_3="false"
 
 # 3.4 Ensure security auditing retention
-OrgScore3_4="true"
-# OrgScore3_4="false"
+#OrgScore3_4="true"
+OrgScore3_4="false"
 
 # 3.5 Control access to audit records 
 OrgScore3_5="true"
@@ -388,8 +388,8 @@ OrgScore5_13="true"
 
 # 5.14 Create a Login window banner
 # Policy Banner https://support.apple.com/en-us/HT202277
-OrgScore5_14="true"
-# OrgScore5_14="false"
+#OrgScore5_14="true"
+OrgScore5_14="false"
 
 ## 5.15 Do not enter a password-related hint (Not Scored)
 ## Not needed if 6.1.2 Disable "Show password hints" is enforced.
@@ -416,8 +416,8 @@ OrgScore5_20="true"
 
 # 6.1.1 Display login window as name and password 
 # Configuration Profile - LoginWindow payload > Window > LOGIN PROMPT > Name and password text fields (selected)
-OrgScore6_1_1="true"
-# OrgScore6_1_1="false"
+#OrgScore6_1_1="true"
+OrgScore6_1_1="false"
 
 # 6.1.2 Disable "Show password hints" 
 # Configuration Profile - LoginWindow payload > Options > Show password hint when needed and available (unchecked - Yes this is backwards)
