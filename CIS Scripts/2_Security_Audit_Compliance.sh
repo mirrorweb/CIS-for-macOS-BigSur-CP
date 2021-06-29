@@ -965,7 +965,7 @@ Audit4_1="$($Defaults read "$plistlocation" OrgScore4_1)"
 if [ "$Audit4_1" = "1" ]; then
     CP_bonjourAdvertise="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("NoMulticastAdvertisements", "com.apple.mDNSResponder.plist")')"
 	# If client fails, then note category in audit file
-	if [[ "$CP_bonjourAdvertise" -gt "0" ]];then
+	if [[ "$CP_bonjourAdvertise" == "True" ]];then
 		echo "$(date -u)" "4.1 passed cp" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore4_1 -bool false
 	else
