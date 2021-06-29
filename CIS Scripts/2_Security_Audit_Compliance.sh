@@ -657,9 +657,9 @@ fi
 Audit2_5_5="$($Defaults read "$plistlocation" OrgScore2_5_5)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_5_5" = "1" ]; then
-CP_disableDiagnostic="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'allowDiagnosticSubmission = 0')"
+CP_disableDiagnostic="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("AutoSubmit", "com.apple.SubmitDiagInfo")')"
 	# If client fails, then note category in audit file
-	if [[ "$CP_disableDiagnostic" -gt "0" ]] ; then
+	if [[ "$CP_disableDiagnostic" == "False" ]] ; then
 		echo "$(date -u)" "2.5.5 passed cp" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore2_5_5 -bool false; else
 	AppleDiagn=$($Defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit)
