@@ -964,7 +964,7 @@ fi
 Audit4_1="$($Defaults read "$plistlocation" OrgScore4_1)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit4_1" = "1" ]; then
-	CP_bonjourAdvertise="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'NoMulticastAdvertisements = 1')"
+    CP_bonjourAdvertise="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("NoMulticastAdvertisements", "com.apple.mDNSResponder.plist")')"
 	# If client fails, then note category in audit file
 	if [[ "$CP_bonjourAdvertise" -gt "0" ]];then
 		echo "$(date -u)" "4.1 passed cp" | tee -a "$logFile"
