@@ -848,7 +848,6 @@ Audit2_11="$($Defaults read "$plistlocation" OrgScore2_11)"
 if [ "$Audit2_11" = "1" ]; then
 # Check for T2 chip.  
 if system_profiler SPiBridgeDataType | grep 'Model Name:' | grep -q 'T2'; then 
-	echo "* 2.11 Check EFI Firmware Integrity is not supported by this Mac. T2 Chip found." >> "$auditfilelocation"
 	$Defaults write "$plistlocation" OrgScore2_11 -bool false
 	echo "$(date -u)" "2.11 passed" | tee -a "$logFile"
 	else
