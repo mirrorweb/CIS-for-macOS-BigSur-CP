@@ -576,7 +576,7 @@ fi
 # 2.5.2.1 Enable Gatekeeper 
 # Configuration Profile - Security and Privacy payload > General > Gatekeeper > Mac App Store and identified developers (selected)
 # Verify organizational score
-Audit2_5_2.1="$($Defaults read "$plistlocation" OrgScore2_5_2_1)"
+Audit2_5_2_1="$($Defaults read "$plistlocation" OrgScore2_5_2_1)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_5_2_1" = "1" ]; then
 	CP_gatekeeperEnabled="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'EnableAssessment = 1')"
@@ -821,7 +821,7 @@ fi
 # 2.10 Enable Secure Keyboard Entry in terminal.app 
 # Configuration Profile - Custom payload > com.apple.Terminal > SecureKeyboardEntry=true
 # Verify organizational score
-Audit2_9="$($Defaults read "$plistlocation" OrgScore2_10)"
+Audit2_10="$($Defaults read "$plistlocation" OrgScore2_10)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_10" = "1" ]; then
 	CP_secureKeyboard="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'SecureKeyboardEntry = 1')"
