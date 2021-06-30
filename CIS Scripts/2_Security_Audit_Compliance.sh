@@ -221,9 +221,9 @@ fi
 Audit2_1_2="$($Defaults read "$plistlocation" OrgScore2_1_2)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_1_2" = "1" ]; then
-	btMenuBar="$($Defaults read /Users/"$currentUser"/Library/Preferences/com.apple.systemuiserver menuExtras | grep -c Bluetooth.menu)"
+    btMenuBar="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("Bluetooth", "com.apple.controlcenter.plist")')"
 	# If client fails, then note category in audit file
-	if [ "$btMenuBar" = "0" ]; then
+	if [ "$btMenuBar" = "18" ]; then
 		echo "* 2.1.2 Show Bluetooth status in menu bar" >> "$auditfilelocation"
 		echo "$(date -u)" "2.1.2 fix" | tee -a "$logFile"; else
 		echo "$(date -u)" "2.1.2 passed" | tee -a "$logFile"
