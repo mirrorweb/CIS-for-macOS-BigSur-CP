@@ -331,7 +331,7 @@ OrgScore5_3="true"
 
 
 # 5.4 Automatically lock the login keychain for inactivity
-OrgScore5_4="true"
+OrgScore5_4="false"
 
 
 # 5.5 Use a separate timestamp for each user/tty combo

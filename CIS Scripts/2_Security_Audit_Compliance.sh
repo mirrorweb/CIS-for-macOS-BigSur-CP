@@ -221,9 +221,9 @@ fi
 Audit2_1_2="$($Defaults read "$plistlocation" OrgScore2_1_2)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_1_2" = "1" ]; then
-	btMenuBar="$($Defaults read /Users/"$currentUser"/Library/Preferences/com.apple.systemuiserver menuExtras | grep -c Bluetooth.menu)"
+    btMenuBar="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("Bluetooth", "com.apple.controlcenter.plist")')"
 	# If client fails, then note category in audit file
-	if [ "$btMenuBar" = "0" ]; then
+	if [ "$btMenuBar" = "18" ]; then
 		echo "* 2.1.2 Show Bluetooth status in menu bar" >> "$auditfilelocation"
 		echo "$(date -u)" "2.1.2 fix" | tee -a "$logFile"; else
 		echo "$(date -u)" "2.1.2 passed" | tee -a "$logFile"
@@ -576,7 +576,7 @@ fi
 # 2.5.2.1 Enable Gatekeeper 
 # Configuration Profile - Security and Privacy payload > General > Gatekeeper > Mac App Store and identified developers (selected)
 # Verify organizational score
-Audit2_5_2.1="$($Defaults read "$plistlocation" OrgScore2_5_2_1)"
+Audit2_5_2_1="$($Defaults read "$plistlocation" OrgScore2_5_2_1)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_5_2_1" = "1" ]; then
 	CP_gatekeeperEnabled="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'EnableAssessment = 1')"
@@ -657,9 +657,9 @@ fi
 Audit2_5_5="$($Defaults read "$plistlocation" OrgScore2_5_5)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_5_5" = "1" ]; then
-CP_disableDiagnostic="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'allowDiagnosticSubmission = 0')"
+CP_disableDiagnostic="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("AutoSubmit", "com.apple.SubmitDiagInfo")')"
 	# If client fails, then note category in audit file
-	if [[ "$CP_disableDiagnostic" -gt "0" ]] ; then
+	if [[ "$CP_disableDiagnostic" == "False" ]] ; then
 		echo "$(date -u)" "2.5.5 passed cp" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore2_5_5 -bool false; else
 	AppleDiagn=$($Defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit)
@@ -821,7 +821,7 @@ fi
 # 2.10 Enable Secure Keyboard Entry in terminal.app 
 # Configuration Profile - Custom payload > com.apple.Terminal > SecureKeyboardEntry=true
 # Verify organizational score
-Audit2_9="$($Defaults read "$plistlocation" OrgScore2_10)"
+Audit2_10="$($Defaults read "$plistlocation" OrgScore2_10)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_10" = "1" ]; then
 	CP_secureKeyboard="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'SecureKeyboardEntry = 1')"
@@ -848,7 +848,6 @@ Audit2_11="$($Defaults read "$plistlocation" OrgScore2_11)"
 if [ "$Audit2_11" = "1" ]; then
 # Check for T2 chip.  
 if system_profiler SPiBridgeDataType | grep 'Model Name:' | grep -q 'T2'; then 
-	echo "* 2.11 Check EFI Firmware Integrity is not supported by this Mac. T2 Chip found." >> "$auditfilelocation"
 	$Defaults write "$plistlocation" OrgScore2_11 -bool false
 	echo "$(date -u)" "2.11 passed" | tee -a "$logFile"
 	else
@@ -964,9 +963,9 @@ fi
 Audit4_1="$($Defaults read "$plistlocation" OrgScore4_1)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit4_1" = "1" ]; then
-	CP_bonjourAdvertise="$(/usr/sbin/system_profiler SPConfigurationProfileDataType | /usr/bin/grep -c 'NoMulticastAdvertisements = 1')"
+    CP_bonjourAdvertise="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("NoMulticastAdvertisements", "com.apple.mDNSResponder.plist")')"
 	# If client fails, then note category in audit file
-	if [[ "$CP_bonjourAdvertise" -gt "0" ]];then
+	if [[ "$CP_bonjourAdvertise" == "True" ]];then
 		echo "$(date -u)" "4.1 passed cp" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore4_1 -bool false
 	else
@@ -1090,7 +1089,7 @@ fi
 Audit5_3="$($Defaults read "$plistlocation" OrgScore5_3)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit5_3" = "1" ]; then
-	sudoTimeout="$(cat /etc/sudoers | grep timestamp)"
+    sudoTimeout="$(cat /private/etc/sudoers.d/defaults_timestamp_timeout | grep -c 'timestamp_timeout = 0')"
 	# If client fails, then note category in audit file
 	if [ "$sudoTimeout" = "" ]; then
 		echo "* 5.3 Reduce the sudo timeout period" >> "$auditfilelocation"
