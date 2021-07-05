@@ -166,7 +166,7 @@ OrgScore2_5_1_1="true"
 
 
 # 2.5.1.2 Ensure all user storage APFS volumes are encrypted (Not Scored)
-OrgScore2_5_1_2="true"
+OrgScore2_5_1_2="false"
 
 
 # 2.5.1.3 Ensure all user storage CoreStorage volumes are encrypted (Not Scored)
@@ -264,7 +264,7 @@ OrgScore3_1="true"
 
 
 # 3.2 Configure Security Auditing Flags per local organizational requirements (Not Scored)
-OrgScore3_2="true"
+OrgScore3_2="false"
 
 
 # 3.3 Retain install.log for 365 or more days
