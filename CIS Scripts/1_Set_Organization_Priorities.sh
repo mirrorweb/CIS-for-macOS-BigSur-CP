@@ -131,7 +131,7 @@ OrgScore2_4_4="true"
 
 # 2.4.5 Disable Remote Login 
 # SSH
-OrgScore2_4_5="false"
+OrgScore2_4_5="true"
 
 
 # 2.4.6 Disable DVD or CD Sharing
@@ -140,7 +140,7 @@ OrgScore2_4_6="true"
 
 # 2.4.7 Disable Bluetooth Sharing 
 
-OrgScore2_4_7="false"
+OrgScore2_4_7="true"
 
 # 2.4.8 Disable File Sharing 
 OrgScore2_4_8="true"
@@ -186,7 +186,7 @@ OrgScore2_5_2_2="true"
 # 2.5.2.3 Enable Firewall Stealth Mode 
 # Configuration Profile - Security and Privacy payload > Firewall > Enable stealth mode (checked)
 
-OrgScore2_5_2_3="false"
+OrgScore2_5_2_3="true"
 
 # 2.5.3 Enable Location Services
 OrgScore2_5_3="true"
@@ -269,11 +269,11 @@ OrgScore3_2="false"
 
 # 3.3 Retain install.log for 365 or more days
 
-OrgScore3_3="false"
+OrgScore3_3="true"
 
 # 3.4 Ensure security auditing retention
 
-OrgScore3_4="false"
+OrgScore3_4="true"
 
 # 3.5 Control access to audit records 
 OrgScore3_5="true"
@@ -331,18 +331,18 @@ OrgScore5_3="true"
 
 
 # 5.4 Automatically lock the login keychain for inactivity
-OrgScore5_4="false"
+OrgScore5_4="true"
 
 
 # 5.5 Use a separate timestamp for each user/tty combo
 # This is a very bad idea. It will confuse users.
 
-OrgScore5_5="false"
+OrgScore5_5="true"
 
 # 5.6 Ensure login keychain is locked when the computer sleeps
 # This is a very bad idea. It will confuse users.
 
-OrgScore5_6="false"
+OrgScore5_6="true"
 
 # 5.7 Do not enable the "root" account
 OrgScore5_7="true"
@@ -611,3 +611,4 @@ cat << EOF > "$plistlocation"
 </dict>
 </plist>
 EOF
+
