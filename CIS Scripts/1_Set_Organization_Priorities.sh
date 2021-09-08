@@ -35,6 +35,8 @@
 # Updated for 10.13 CIS benchmarks by Erin McDonald, Jamf Jan 2019
 # Updated for 10.15 CIS benchmarks by Erin McDonald, Jamf, March 2020
 # updated for 10.15 CIS benchmarks by Erin McDonald, Jamf 2020
+# updated for 11.0 CIS benchmarks by Philip Clegg, MirrorWeb 2021
+
 
 # USAGE
 # Admins set organizational compliance for each listed item, which gets written to plist.
@@ -533,6 +535,8 @@ cat << EOF > "$plistlocation"
 		<key>OrgScore2_9</key>
 		<${OrgScore2_9}/>
 		<key>OrgScore2_11</key>
+		<${OrgScore2_10}/>
+		<key>OrgScore2_10</key>
 		<${OrgScore2_11}/>
 		<key>OrgScore3_1</key>
 		<${OrgScore3_1}/>

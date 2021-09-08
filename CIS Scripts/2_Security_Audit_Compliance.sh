@@ -34,6 +34,8 @@
 # github.com/jamfprofessionalservices
 # updated for 10.13 CIS benchmarks by Erin McDonald, Jamf Jan 2019
 # updated for 10.15 CIS benchmarks by Erin McDonald, Jamf 2020
+# updated for 11.0 CIS benchmarks by Philip Clegg, MirrorWeb 2021
+
 
 # USAGE
 # Reads from plist at /Library/Application Support/SecurityScoring/org_security_score.plist by default.
@@ -49,7 +51,7 @@ Defaults="/usr/bin/defaults"
 
 plistlocation="/Library/Application Support/SecurityScoring/org_security_score.plist"
 auditfilelocation="/Library/Application Support/SecurityScoring/org_audit"
-currentUser="$(python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')"
+currentUser=$( scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 hardwareUUID="$(/usr/sbin/system_profiler SPHardwareDataType | grep "Hardware UUID" | awk -F ": " '{print $2}' | xargs)"
 
 logFile="/Library/Application Support/SecurityScoring/remediation.log"
@@ -207,7 +209,7 @@ if [ "$Audit2_1_1" = "1" ]; then
 		echo "$(date -u)" "2.1.1 passed" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore2_1_1 -bool false; else
 		connectable="$(system_profiler SPBluetoothDataType 2>&1| grep Connectable | awk '{print $2}' | head -1)"
-		if [[ "$connectable" != "Yes" ]]; then
+		if [[ "$connectable" = *"Yes" ]]; then
 			echo "$(date -u)" "2.1.1 passed" | tee -a "$logFile"
 			$Defaults write "$plistlocation" OrgScore2_1_1 -bool false; else
 			echo "* 2.1.1 Turn off Bluetooth, if no paired devices exist" >> "$auditfilelocation"
@@ -1089,7 +1091,7 @@ fi
 Audit5_3="$($Defaults read "$plistlocation" OrgScore5_3)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit5_3" = "1" ]; then
-    sudoTimeout="$(cat /private/etc/sudoers.d/defaults_timestamp_timeout | grep -c 'timestamp_timeout = 0')"
+    sudoTimeout="$(cat /etc/sudoers | grep -c 'Defaults timestamp_timeout=0')"
 	# If client fails, then note category in audit file
 	if [ "$sudoTimeout" = "0" ]; then
 		echo "* 5.3 Reduce the sudo timeout period" >> "$auditfilelocation"

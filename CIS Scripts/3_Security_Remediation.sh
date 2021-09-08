@@ -34,6 +34,7 @@
 # github.com/jamfprofessionalservices
 # updated for 10.13 CIS benchmarks by Erin McDonald, Jamf Jan 2019
 # updated for 10.15 CIS benchmarks by Erin McDonald, Jamf 2020
+# updated for 11.0 CIS benchmarks by Philip Clegg, MirrorWeb 2021
 
 # USAGE
 # Reads from plist at /Library/Application Support/SecurityScoring/org_security_score.plist by default.
@@ -41,7 +42,7 @@
 # Non-compliant items are logged to /Library/Application Support/SecurityScoring/org_audit
 
 plistlocation="/Library/Application Support/SecurityScoring/org_security_score.plist"
-currentUser="$(python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')"
+currentUser=$( scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 currentUserID="$(/usr/bin/id -u $currentUser)"
 hardwareUUID="$(/usr/sbin/system_profiler SPHardwareDataType | grep "Hardware UUID" | awk -F ": " '{print $2}' | xargs)"
 
@@ -724,11 +725,11 @@ Audit5_6="$(defaults read "$plistlocation" OrgScore5_6)"
 # If client fails, then remediate
 if [ "$Audit5_4" = "1" ] && [ "$Audit5_6" = 1 ]; then
 echo "$(date -u)" "Checking 5.4 and 5.6" | tee -a "$logFile"
-	security set-keychain-settings -l -u -t 21600s /Users/"$currentUser"/Library/Keychains/login.keychain
+	sudo -u $currentUser security set-keychain-settings -l -u -t 21600 /Users/$currentUser/Library/Keychains/login.keychain
 	echo "$(date -u)" "5.4 and 5.6 remediated" | tee -a "$logFile"
 	elif [ "$Audit5_4" = "1" ] && [ "$Audit5_6" = 0 ]; then
 		echo "$(date -u)" "Checking 5.4" | tee -a "$logFile"
-		security set-keychain-settings -u -t 21600s /Users/"$currentUser"/Library/Keychains/login.keychain
+		sudo -u $currentUser security set-keychain-settings -u -t 21600 /Users/$currentUser/Library/Keychains/login.keychain
 		echo "$(date -u)" "5.4 remediated" | tee -a "$logFile"
 		elif [ "$Audit5_4" = "0" ] && [ "$Audit5_6" = 1 ]; then
 			echo "$(date -u)" "Checking 5.6" | tee -a "$logFile"
@@ -776,6 +777,8 @@ if [ "$Audit5_10" = "1" ]; then
 	pmset -a standbydelaylow 600
 	pmset -a highstandbythreshold 90
 	pmset -a destroyfvkeyonstandby 1
+	pmset -a hibernatemode 3
+	pmset -a displaysleep 10
 	echo "$(date -u)" "5.10 remediated" | tee -a "$logFile"
 fi
 
