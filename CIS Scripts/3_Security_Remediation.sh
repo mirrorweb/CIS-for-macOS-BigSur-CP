@@ -142,6 +142,7 @@ Audit2_1_2="$(defaults read "$plistlocation" OrgScore2_1_2)"
 # If organizational score is 1 or true, check status of client
 # If client fails, then remediate
 if [ "$Audit2_1_2" = "1" ]; then
+	sudo -u $currentUser defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
 	open "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
 	echo "$(date -u)" "2.1.2 remediated" | tee -a "$logFile"
 fi

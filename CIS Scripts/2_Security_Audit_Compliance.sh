@@ -223,9 +223,9 @@ fi
 Audit2_1_2="$($Defaults read "$plistlocation" OrgScore2_1_2)"
 # If organizational score is 1 or true, check status of client
 if [ "$Audit2_1_2" = "1" ]; then
-    btMenuBar="$(python -c 'from CoreFoundation import CFPreferencesCopyAppValue; print CFPreferencesCopyAppValue("Bluetooth", "com.apple.controlcenter.plist")')"
+    btMenuBar="$(sudo -u $currentUser defaults -currentHost read com.apple.controlcenter.plist Bluetooth)"
 	# If client fails, then note category in audit file
-	if [ "$btMenuBar" = "18" ]; then
+	if [ "$btMenuBar" != "18" ]; then
 		echo "* 2.1.2 Show Bluetooth status in menu bar" >> "$auditfilelocation"
 		echo "$(date -u)" "2.1.2 fix" | tee -a "$logFile"; else
 		echo "$(date -u)" "2.1.2 passed" | tee -a "$logFile"
@@ -665,7 +665,7 @@ CP_disableDiagnostic="$(python -c 'from CoreFoundation import CFPreferencesCopyA
 		echo "$(date -u)" "2.5.5 passed cp" | tee -a "$logFile"
 		$Defaults write "$plistlocation" OrgScore2_5_5 -bool false; else
 	AppleDiagn=$($Defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit)
-	if [ "$AppleDiagn" == 1 ]; then 
+	if [ "$AppleDiagn" != 0 ]; then 
 		/bin/echo "* 2.5.5 Disable sending diagnostic and usage data to Apple" >> "$auditfilelocation"
 		echo "$(date -u)" "2.5.5 fix Disable sending diagnostic and usage data to Apple" | tee -a "$logFile"; else
 		echo "$(date -u)" "2.5.5 passed" | tee -a "$logFile"
@@ -1219,11 +1219,11 @@ if [ "$Audit5_10" = "1" ]; then
 	if [[ "$macType" -ge 0 ]]; then
 		hibernateValue=$(pmset -g | egrep standbydelaylow | awk '{print $2}')
 		if [[ "$hibernateValue" == "" ]] || [[ "$hibernateValue" -gt 600 ]]; then
-			echo "$(date -u)" "5.10 passed" | tee -a "$logFile"
-			$Defaults write "$plistlocation" OrgScore5_10 -bool false
-		else
 			echo "* 5.10 Ensure system is set to hibernate" >> "$auditfilelocation"
 			echo "$(date -u)" "5.10 fix" | tee -a "$logFile"
+		else
+			echo "$(date -u)" "5.10 passed" | tee -a "$logFile"
+			$Defaults write "$plistlocation" OrgScore5_10 -bool false
 		fi
 	else
 		echo "$(date -u)" "5.10 passed" | tee -a "$logFile"

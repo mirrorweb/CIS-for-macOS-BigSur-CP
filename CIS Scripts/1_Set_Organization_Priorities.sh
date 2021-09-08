@@ -193,17 +193,17 @@ OrgScore2_5_2_3="true"
 # 2.5.3 Enable Location Services
 OrgScore2_5_3="true"
 
-
-## 2.5.7 Monitor Location Services Access (Not Scored)
-## As of macOS 10.12.2, Location Services cannot be enabled/monitored programmatically.
-## It is considered user opt in.
-
 # 2.5.5 Disable sending diagnostic and usage data to Apple
 OrgScore2_5_5="true"
 
 
 # 2.5.6 Limit Ad tracking and personalized Ads 
 OrgScore2_5_6="true"
+
+
+## 2.5.7 Monitor Location Services Access (Not Scored)
+## As of macOS 10.12.2, Location Services cannot be enabled/monitored programmatically.
+## It is considered user opt in.
 
 
 # 2.6.1 iCloud configuration (Check for iCloud accounts) (Not Scored)
