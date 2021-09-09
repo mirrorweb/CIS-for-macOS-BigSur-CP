@@ -344,7 +344,7 @@ OrgScore5_5="true"
 # 5.6 Ensure login keychain is locked when the computer sleeps
 # This is a very bad idea. It will confuse users.
 
-OrgScore5_6="true"
+OrgScore5_6="false"
 
 # 5.7 Do not enable the "root" account
 OrgScore5_7="true"
