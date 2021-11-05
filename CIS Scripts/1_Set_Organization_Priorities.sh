@@ -329,7 +329,7 @@ OrgScore5_1_4="true"
 ## 5.2.8 Password History
 
 # 5.3 Reduce the sudo timeout period
-OrgScore5_3="true"
+OrgScore5_3="false"
 
 
 # 5.4 Automatically lock the login keychain for inactivity
